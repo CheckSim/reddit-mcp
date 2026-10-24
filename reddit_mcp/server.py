@@ -176,6 +176,14 @@ async def list_tools() -> list[Tool]:
                     "url": {
                         "type": "string",
                         "description": "Link URL (for link posts, mutually exclusive with text)"
+                    },
+                    "flair_id": {
+                        "type": "string",
+                        "description": "Optional post flair template ID (UUID)"
+                    },
+                    "flair_text": {
+                        "type": "string",
+                        "description": "Optional post flair text"
                     }
                 },
                 "required": ["subreddit", "title"]
@@ -263,7 +271,9 @@ async def call_tool(name: str, arguments: dict[str, Any]) -> list[TextContent]:
                 arguments["subreddit"],
                 arguments["title"],
                 text=arguments.get("text"),
-                url=arguments.get("url")
+                url=arguments.get("url"),
+                flair_id=arguments.get("flair_id"),
+                flair_text=arguments.get("flair_text")
             )
 
         elif name == "reddit_vote":

@@ -472,7 +472,8 @@ class RedditClient:
         return {"success": True, "id": None, "permalink": None}
 
     def submit(self, subreddit: str, title: str, text: Optional[str] = None,
-               url: Optional[str] = None, flair_id: Optional[str] = None) -> dict:
+               url: Optional[str] = None, flair_id: Optional[str] = None,
+               flair_text: Optional[str] = None) -> dict:
         """Submit a new post.
 
         Args:
@@ -506,6 +507,8 @@ class RedditClient:
             data["url"] = url
         if flair_id:
             data["flair_id"] = flair_id
+        if flair_text:
+            data["flair_text"] = flair_text
 
         resp = self.session.post(f"{BASE_URL}/api/submit", data=data)
 
@@ -670,7 +673,8 @@ class RedditClient:
         return {"success": True, "id": None, "permalink": None}
 
     async def async_submit(self, subreddit: str, title: str, text: Optional[str] = None,
-                           url: Optional[str] = None, flair_id: Optional[str] = None) -> dict:
+                           url: Optional[str] = None, flair_id: Optional[str] = None,
+                           flair_text: Optional[str] = None) -> dict:
         """Submit a new post (async version)."""
         if not await self._async_ensure_logged_in():
             return {"success": False, "error": "Not logged in"}
@@ -693,6 +697,8 @@ class RedditClient:
             data["url"] = url
         if flair_id:
             data["flair_id"] = flair_id
+        if flair_text:
+            data["flair_text"] = flair_text
 
         resp = self.session.post(f"{BASE_URL}/api/submit", data=data)
 
